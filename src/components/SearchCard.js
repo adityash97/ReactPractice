@@ -10,7 +10,7 @@ export default function SearchCard (props){
         <Form.Control
           placeholder="Search Here"
           onChange={props.handleChange}
-          value={props.searchterm}
+          value={props.value}
         />
       </InputGroup>
     </Row>
