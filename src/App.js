@@ -6,11 +6,18 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import SearchCard from "./components/SearchCard";
-import {useState} from 'react'
+import {useState,useEffect} from 'react'
 
+const {localStorage} = window
 
 function App() {
-  const [searchterm,setSearchTerm] = useState('');
+  // debugger
+  const [searchterm, setSearchTerm] = useState(
+    localStorage.getItem("search") || ""
+  );
+  useEffect(()=>{
+    localStorage.setItem("search", searchterm);
+  },[searchterm])
   const list = [
     {
       title: "React",
@@ -35,6 +42,9 @@ function App() {
   }
   const [finalList, setFinalList] = useState(list);
 
+  useEffect(()=>{
+     setFinalList(list.filter((data) =>  data["title"].includes(searchterm)))
+  },[])
   const handleSearch = (searchterm) =>
     setFinalList(list.filter((data) =>{
       return data["title"].includes(searchterm);
